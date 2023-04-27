@@ -67,7 +67,7 @@ def params_filtres(type, fichier):
         ny_quist_freq = 0.5 * (fichier_audio.frame_rate)
         Wn = cutoff_hz / ny_quist_freq
         order = 5
-        b, a = signal.cheby1(order,rp, Wn, btype='lowpass')
+        b, a = signal.cheby1(order,rp, Wn, btype='low')
         return b, a
     else:
         cutoff = 1000
@@ -82,30 +82,6 @@ def params_filtres(type, fichier):
 def filtration_signal(b, a, fonction):
     filtered = signal.filtfilt(b, a, fonction)
     return filtered
-
-'''def filtre1(fichier):
-    fichier_audio = AudioSegment.from_wav(fichier)
-    fonction = np.array(fichier_audio.get_array_of_samples())
-    temps = np.arange(0, len(fonction)) / fichier_audio.frame_rate
-    order = 10
-    fs = 150.0
-    cutoff = 4.0
-    b, a = signal.butter(order, 5200, btype='low', fs=44100)
-    filtered = signal.filtfilt(b, a, fonction)
-    return filtered, temps
-def filtre2(fichier):
-    low_cutoff = 350
-    high_cutoff = 7500
-    order = 4
-    fichier_audio = AudioSegment.from_wav(fichier)
-    ny_quist_freq = 0.5*(fichier_audio.frame_rate)
-    low = low_cutoff/ny_quist_freq
-    high = high_cutoff/ny_quist_freq
-    fonction = np.array(fichier_audio.get_array_of_samples())
-    temps = np.arange(0, len(fonction)) / fichier_audio.frame_rate
-    b, a = signal.butter(order, [low, high], btype='bandpass')
-    filtered = signal.filtfilt(b, a, fonction)
-    return filtered, temps'''
 
 def mise_en_forme_signal(signal1):
     signal1 *= 32767 / np.max(np.abs(signal1))
@@ -146,18 +122,6 @@ def sauvegarde_signal(fichier, fonction):
 
 
 
-
-'''def graph_builder(temps1,temps2,temps3,fonction_originale,fonction_bruitée,fonction_retablie,nom1,nom2,nom3):
-    plt.figure()
-    plt.plot(temps1, fonction_originale)
-    plt.plot(temps2, fonction_bruitée)
-    plt.plot(temps3, fonction_retablie)
-    plt.xlim([0, 0.005])
-    plt.legend([nom1, nom2, nom3])
-    plt.xlabel("Time (seconds)")
-    plt.ylabel("Amplitude")'''
-
-
 def main():
     i = 1
     audio_file1 = AudioSegment.from_wav("Signals/Sin/sine_wave1.wav")
@@ -183,14 +147,10 @@ def main():
     sin_butter_3001.graph_builder(6)
     music_butter_11.graph_builder(7)
     music_butter_12.graph_builder(8)'''
-    voix_butter_1.graph_builder(9, [0.499, 0.501], [-400, 800], False)
-    sin_butter_101.graph_builder(1, [0.490, 0.510], [-32000, 32000],True)
+    voix_butter_1.graph_builder(9, [0.499, 0.501], [-400, 800], True)
+    sin_butter_101.graph_builder(1, [0.490, 0.510], [-32000, 32000], True)
     plt.show()
 
-
-
-
-    # Plot the waveform
 
 
 
