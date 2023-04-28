@@ -11,11 +11,12 @@ from PIL import Image, ImageFilter, ImageOps
 
 import scipy
 class FiltreImage:
-    def __init__(self,fichier1,fichier2,i,ii ):
+    def __init__(self,fichier1,fichier2,i,ii,iii ):
         self.i = i
+        self.iii = iii
         self.fichier1 = fichier1
         self.fichier2 = fichier2
-        neighborhood = disk(radius=3)
+        neighborhood = disk(radius=iii)
         originale = Image.open(self.fichier1)
         originale = ImageOps.grayscale(originale)
         image = Image.open(self.fichier2)
@@ -65,18 +66,17 @@ def enregistrement(image, fichier, type):
         image.save(fichier)
 
 
-'''noise = np.zeros(gray.shape, np.uint8)
-cv2.randu(noise, 0, 255)
-salt = noise > 245
-pepper = noise < 10
-gray[salt] = 255
-gray[pepper] = 0'''
 def main():
-    image1 = FiltreImage("Images/stonk.png","Images/Stonk_G.png",1,1)
-    image2 = FiltreImage("Images/stonk.png","Images/Stonk_SAP.png",2,1)
-    image3 = FiltreImage("Images/LinkedIn_logo_initials.png","Images/LinkedIn_G.png",3,2 )
-    image4 = FiltreImage("Images/LinkedIn_logo_initials.png", "Images/LinkedIn_SAP.png",4,1)
+    image1 = FiltreImage("Images/stonk.png","Images/Stonk_G.png",  1, 1, 10)
+    image2 = FiltreImage("Images/stonk.png","Images/Stonk_SAP.png",2,1,3)
+    image3 = FiltreImage("Images/LinkedIn_logo_initials.png","Images/LinkedIn_G.png", 3,3,3 )
+    image4 = FiltreImage("Images/LinkedIn_logo_initials.png", "Images/LinkedIn_SAP.png",4,1,3)
     plt.show()
-
+    im = Image.open("Images/LinkedIn_logo_initials.png")
+    im2 = Image.open("Images/stonk.png")
+    im = ImageOps.grayscale(im)
+    im2= ImageOps.grayscale(im2)
+    im.save("Images/LinkedIn_logo_initials_grayscale.png")
+    im2.save("Images/stonk_grayscale.png")
 
 main()
