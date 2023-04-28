@@ -21,7 +21,7 @@ class Signal:
         self.bruit, self.temps2 = generation_fonction_temps(fichier2)
         self.b, self.a = params_filtres(choix_filtre, self.fichier2)
         self.filtered = filtration_signal(self.b, self.a, self.bruit)
-        self.filtered = self.filtered*2
+        self.filtered = self.filtered
         self.filtered = mise_en_forme_signal(self.filtered)
         sauvegarde_signal(self.nom_fichier3, self.filtered)
 
@@ -32,7 +32,7 @@ class Signal:
         plt.plot(self.temps1, self.original)
         if bruit:
             plt.plot(self.temps2, self.bruit)
-        plt.plot(self.temps2, self.filtered)
+        #plt.plot(self.temps2, self.filtered)
         plt.xlim(x)
         plt.ylim(y)
         plt.legend([self.nom_fichier1, self.nom_fichier2, self.nom_fichier3])
@@ -45,8 +45,8 @@ def params_filtres(type, fichier):
     fichier_audio = AudioSegment.from_wav(fichier)
 
     if type == 1:
-        low_cutoff = 350
-        high_cutoff = 7500
+        low_cutoff = 50
+        high_cutoff = 1000
         order = 4
         ny_quist_freq = 0.5 * fichier_audio.frame_rate
         low = low_cutoff / ny_quist_freq
@@ -147,7 +147,9 @@ def main():
     sin_butter_3001.graph_builder(6)
     music_butter_11.graph_builder(7)
     music_butter_12.graph_builder(8)'''
-    voix_butter_1.graph_builder(9, [0.499, 0.501], [-400, 800], True)
+    voix_butter_1.graph_builder(9, [0.499, 0.501], [-40, 60], False)
+    music_butter_11.graph_builder(10, [0.5, 0.506], [0, 34000],True)
+    music_butter_12.graph_builder(11, [0.5, 0.506], [0, 34000], True)
     sin_butter_101.graph_builder(1, [0.490, 0.510], [-32000, 32000], True)
     plt.show()
 
