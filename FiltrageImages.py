@@ -53,6 +53,13 @@ def affichage_comparaison(originale, bruitée, filtrée1, filtrée2,i):
     plt.title('Median filter'), plt.xticks([]), plt.yticks([])
     plt.show(block=False)
 
+def comparaison_deux_images(image1, image2, nom1, nom2,i):
+    plt.figure(i)
+    plt.subplot(2, 3, 1), plt.imshow(image1, cmap='gray')
+    plt.title(nom1), plt.xticks([]), plt.yticks([])
+    plt.subplot(2, 3, 2), plt.imshow(image2, cmap='gray')
+    plt.title(nom2), plt.xticks([]), plt.yticks([])
+
 def enregistrement(image, fichier, type):
     if "G" in fichier:
         fichier = fichier.replace("Images/","Images/G/")
@@ -67,9 +74,9 @@ def enregistrement(image, fichier, type):
 
 
 def main():
-    image1 = FiltreImage("Images/stonk.png","Images/Stonk_G.png",  1, 1, 10)
+    image1 = FiltreImage("Images/stonk.png","Images/Stonk_G.png",  1, 2, 2)
     image2 = FiltreImage("Images/stonk.png","Images/Stonk_SAP.png",2,1,3)
-    image3 = FiltreImage("Images/LinkedIn_logo_initials.png","Images/LinkedIn_G.png", 3,3,3 )
+    image3 = FiltreImage("Images/LinkedIn_logo_initials.png","Images/LinkedIn_G.png", 3,5,3 )
     image4 = FiltreImage("Images/LinkedIn_logo_initials.png", "Images/LinkedIn_SAP.png",4,1,3)
     plt.show()
     im = Image.open("Images/LinkedIn_logo_initials.png")

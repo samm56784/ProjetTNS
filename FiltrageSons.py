@@ -45,24 +45,24 @@ def params_filtres(type, fichier):
     fichier_audio = AudioSegment.from_wav(fichier)
 
     if type == 1:
-        low_cutoff = 50
-        high_cutoff = 1000
-        order = 4
+        low_cutoff =100
+        high_cutoff = 800
+        order = 3
         ny_quist_freq = 0.5 * fichier_audio.frame_rate
         low = low_cutoff / ny_quist_freq
         high = high_cutoff / ny_quist_freq
         b, a = signal.butter(order, [low, high], btype='bandpass')
         return b, a
     elif type == 2:
-        cutoff = 700
+        cutoff = 1000
         ny_quist_freq = 0.5 * (fichier_audio.frame_rate)
         high = cutoff / ny_quist_freq
-        order = 10
+        order = 5
         fs = 150.0
         b, a = signal.butter(order, high, btype='low')
         return b, a
     elif type == 3:
-        cutoff_hz = 800
+        cutoff_hz = 1000
         rp =1
         ny_quist_freq = 0.5 * (fichier_audio.frame_rate)
         Wn = cutoff_hz / ny_quist_freq
@@ -70,7 +70,7 @@ def params_filtres(type, fichier):
         b, a = signal.cheby1(order,rp, Wn, btype='low')
         return b, a
     else:
-        cutoff = 1000
+        cutoff = 800
         ny_quist_freq = 0.5 * (fichier_audio.frame_rate)
         high = cutoff / ny_quist_freq
         order = 10
@@ -138,20 +138,20 @@ def main():
     sin_3001 = Signal("Signals/Sin/sine_wave1.wav", "Signals/Sin/sin_bruit3_001.wav", 3)
 
     music_11 = Signal("Signals/Music/music1.wav", "Signals/Music/music1_bruit1.wav", 1)
-    music_21 = Signal("Signals/Music/music1.wav", "Signals/Music/music2_bruit1.wav", 2)
-    music_31 = Signal("Signals/Music/music1.wav", "Signals/Music/music3_bruit1.wav", 3)
+    music_21 = Signal("Signals/Music/music2.wav", "Signals/Music/music2_bruit1.wav", 2)
+    music_31 = Signal("Signals/Music/music3.wav", "Signals/Music/music3_bruit1.wav", 3)
 
     music_12 = Signal("Signals/Music/music1.wav", "Signals/Music/music1_bruit2.wav", 1)
-    music_22 = Signal("Signals/Music/music1.wav", "Signals/Music/music2_bruit2.wav", 2)
-    music_32 = Signal("Signals/Music/music1.wav", "Signals/Music/music3_bruit2.wav", 3)
+    music_22 = Signal("Signals/Music/music2.wav", "Signals/Music/music2_bruit2.wav", 2)
+    music_32 = Signal("Signals/Music/music3.wav", "Signals/Music/music3_bruit2.wav", 3)
 
     voix_11 = Signal("Signals/Voix/voix_3.wav", "Signals/Voix/voix1_bruit1.wav", 1)
-    voix_21 = Signal("Signals/Voix/voix_3.wav", "Signals/Voix/voix2_bruit1.wav", 2)
-    voix_31 = Signal("Signals/Voix/voix_3.wav", "Signals/Voix/voix3_bruit1.wav", 3)
+    voix_21 = Signal("Signals/Voix/voix_6.wav", "Signals/Voix/voix2_bruit1.wav", 2)
+    voix_31 = Signal("Signals/Voix/voix_9.wav", "Signals/Voix/voix3_bruit1.wav", 3)
 
     voix_12 = Signal("Signals/Voix/voix_3.wav", "Signals/Voix/voix1_bruit2.wav", 1)
-    voix_22 = Signal("Signals/Voix/voix_3.wav", "Signals/Voix/voix2_bruit2.wav", 2)
-    voix_32 = Signal("Signals/Voix/voix_3.wav", "Signals/Voix/voix3_bruit2.wav", 3)
+    voix_22 = Signal("Signals/Voix/voix_6.wav", "Signals/Voix/voix2_bruit2.wav", 2)
+    voix_32 = Signal("Signals/Voix/voix_9.wav", "Signals/Voix/voix3_bruit2.wav", 3)
 
     ''' sin_butter_101.graph_builder(1)
     sin_butter_1001.graph_builder(2)
@@ -162,10 +162,28 @@ def main():
     music_butter_11.graph_builder(7)
     music_butter_12.graph_builder(8)'''
 
-    '''voix_11.graph_builder(9, [0.499, 0.501], [-40, 60], True)
-    music_11.graph_builder(10, [0.5, 0.506], [0, 34000],True)
-    music_12.graph_builder(11, [0.5, 0.506], [0, 34000], True)
-    sin_101.graph_builder(1, [0.490, 0.510], [-32000, 32000], True)'''
+
+    '''sin_101.graph_builder(1, [0.490, 0.510], [-32000, 32000], True)
+    sin_201.graph_builder(2, [0.490, 0.510], [-32000, 32000], True)
+    sin_301.graph_builder(3, [0.490, 0.510], [-32000, 32000], True)
+    sin_1001.graph_builder(4, [0.490, 0.510], [-32000, 32000], True)
+    sin_2001.graph_builder(5, [0.490, 0.510], [-32000, 32000], True)
+    sin_3001.graph_builder(6, [0.490, 0.510], [-32000, 32000], True)'''
+    '''music_11.graph_builder(7, [0.490, 0.510], [-32000, 32000], True)
+    music_21.graph_builder(8, [0.490, 0.510], [-32000, 32000], True)
+    music_31.graph_builder(9, [0.490, 0.510], [-32000, 32000], True)
+    music_12.graph_builder(10, [0.490, 0.510], [-32000, 32000], True)
+    music_22.graph_builder(11, [0.490, 0.510], [-32000, 32000], True)
+    music_32.graph_builder(12, [0.490, 0.510], [-32000, 32000], True)'''
+
+    '''voix_11.graph_builder(13, [0.499, 0.501], [-800, 800], True)
+    voix_21.graph_builder(14, [0.499, 0.501], [200, 2000], True)
+    voix_31.graph_builder(15, [0.499, 0.501], [-800, 2000], True)'''
+    voix_12.graph_builder(16, [0.499, 0.501], [-1800, 4000], True)
+    voix_22.graph_builder(17, [0.499, 0.501], [200, 4000], True)
+    voix_32.graph_builder(18, [0.499, 0.501], [-1800, 4000], True)
+    '''music_11.graph_builder(10, [0.5, 0.506], [0, 34000],True)
+    music_12.graph_builder(11, [0.5, 0.506], [0, 34000], True)'''
     plt.show()
 
 
